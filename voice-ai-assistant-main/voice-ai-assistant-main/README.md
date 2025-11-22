@@ -1,8 +1,6 @@
-# TalkToBank - AI Voice Banking Assistant
+# TalkToBank — Voice AI Banking Assistant
 
-🏆 **Complete Voice-Powered Banking Solution with Multilingual Support**
-
-**TalkToBank** is a fully functional **voice-powered AI assistant** for secure financial operations. This application allows users to perform banking tasks like checking balance, transferring funds, viewing transaction history, and managing reminders using **natural voice commands** or text input in **English, Hindi, Marathi, or Hinglish**.
+This repository contains a voice-enabled AI assistant demo for banking-related tasks. It includes a Flask backend that provides STT/response/TTS endpoints and a single-file frontend UI that demonstrates voice input, multilingual settings, and chat-style responses.
 
 ---
 
