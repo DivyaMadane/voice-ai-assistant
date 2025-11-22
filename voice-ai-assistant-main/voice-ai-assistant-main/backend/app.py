@@ -60,9 +60,11 @@ def speech_to_text_endpoint():
         # Save audio temporarily
         audio_path = os.path.join(app.config['UPLOAD_FOLDER'], 'temp_audio.wav')
         audio_file.save(audio_path)
-        
-        # Convert speech to text
-        text = speech_to_text(audio_path)
+        # Optional language parameter from client
+        language = request.form.get('language') or None
+
+        # Convert speech to text (pass language to STT backend if provided)
+        text = speech_to_text(audio_path, language=language)
         
         # Clean up
         if os.path.exists(audio_path):
@@ -91,10 +93,14 @@ def process_command():
         # Get conversation context
         context = get_conversation_context(user_id)
         
-        # Detect language
+        # Detect language (incoming) and allow response language override
         detected_lang = detect_language(user_text)
         context.language = detected_lang
         logger.info(f"Detected language: {detected_lang}")
+
+        # Allow client to request a specific response language (force output language)
+        response_lang = data.get('response_language') or detected_lang
+        logger.info(f"Response language requested: {response_lang}")
         
         # Normalize Hinglish to English for processing
         processed_text = user_text
@@ -115,10 +121,9 @@ def process_command():
         # Check if clarification is needed
         needs_clarification, clarification_msg = context.needs_clarification(intent, entities)
         if needs_clarification:
-            # Get localized clarification message
-            if detected_lang != 'en':
-                # For now, use English clarification (can be enhanced with translations)
-                clarification_msg = get_response_template('clarification', detected_lang) or clarification_msg
+            # Get localized clarification message using requested response language
+            if response_lang != 'en':
+                clarification_msg = get_response_template('clarification', response_lang) or clarification_msg
             
             # Add user message to context
             context.add_message('user', user_text, intent, entities)
@@ -128,8 +133,8 @@ def process_command():
             audio_filename = f"response_{datetime.now().timestamp()}.mp3"
             audio_path = os.path.join(app.config['AUDIO_FOLDER'], audio_filename)
             try:
-                # Use appropriate language for TTS
-                lang_code = 'hi' if detected_lang == 'hi' else ('mr' if detected_lang == 'mr' else 'en')
+                # Use appropriate language for TTS based on response language
+                lang_code = 'hi' if response_lang == 'hi' else ('mr' if response_lang == 'mr' else 'en')
                 text_to_speech(clarification_msg, audio_path, lang=lang_code)
             except:
                 text_to_speech(clarification_msg, audio_path)  # Fallback to default
@@ -151,14 +156,15 @@ def process_command():
                 account_type = entities.get('account_type', 'savings')
                 result = check_balance(user_id, account_type)
                 if result['success']:
-                    template = get_response_template('balance', detected_lang)
+                    # Use the requested response language for templates
+                    template = get_response_template('balance', response_lang)
                     if template:
                         response_text = template.format(account_type=account_type, balance=result['balance'])
                     else:
                         response_text = f"Your {account_type} account balance is ₹{result['balance']:,.2f}."
                     data_payload = result
                 else:
-                    error_template = get_response_template('error', detected_lang)
+                    error_template = get_response_template('error', response_lang)
                     response_text = error_template or result.get('message', 'Unable to fetch balance.')
             
             elif intent == 'transfer_funds':
@@ -166,12 +172,12 @@ def process_command():
                 recipient = entities.get('recipient')
                 
                 if not amount or not recipient:
-                    clarification_template = get_response_template('clarification', detected_lang)
+                    clarification_template = get_response_template('clarification', response_lang)
                     response_text = clarification_template or "Please specify the amount and recipient for the transfer."
                 else:
                     result = transfer_funds(user_id, recipient, amount)
                     if result['success']:
-                        template = get_response_template('transfer_success', detected_lang)
+                        template = get_response_template('transfer_success', response_lang)
                         if template:
                             response_text = template.format(amount=amount, recipient=recipient)
                         else:
@@ -258,8 +264,8 @@ def process_command():
         audio_filename = f"response_{datetime.now().timestamp()}.mp3"
         audio_path = os.path.join(app.config['AUDIO_FOLDER'], audio_filename)
         try:
-            # Use appropriate language for TTS
-            lang_code = 'hi' if detected_lang == 'hi' else ('mr' if detected_lang == 'mr' else 'en')
+            # Use appropriate language for TTS based on requested response language
+            lang_code = 'hi' if response_lang == 'hi' else ('mr' if response_lang == 'mr' else 'en')
             text_to_speech(response_text, audio_path, lang=lang_code)
         except Exception as e:
             logger.warning(f"TTS error, using default: {str(e)}")
@@ -268,7 +274,7 @@ def process_command():
         return jsonify({
             "text": response_text,
             "intent": intent,
-            "language": detected_lang,
+            "language": response_lang,
             "audio_url": f"/api/audio/{audio_filename}",
             "data": data_payload
         })

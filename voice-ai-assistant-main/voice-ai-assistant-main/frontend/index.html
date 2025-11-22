@@ -35,6 +35,221 @@
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
+        /* Settings Modal Styles */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .settings-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-content {
+            background-color: var(--bg-secondary);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .settings-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .settings-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .settings-body {
+            padding: 1.5rem;
+        }
+
+        .settings-section {
+            margin-bottom: 2rem;
+        }
+
+        .settings-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .language-option {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background: var(--bg-primary);
+        }
+
+        .language-option:hover {
+            border-color: var(--primary-blue);
+            background: var(--bg-secondary);
+        }
+
+        .language-option.selected {
+            border-color: var(--primary-blue);
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .language-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .language-code {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0.75rem 0;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-blue);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .response-box {
+            background: var(--bg-primary);
+            border-left: 4px solid var(--primary-blue);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .response-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .response-title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .response-content {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .response-bullet {
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .response-bullet:before {
+            content: "• ";
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        /* Profile Modal Styles */
+        .profile-modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .profile-modal.active { display:flex; align-items:center; justify-content:center; }
+        .profile-content { background: var(--bg-secondary); border-radius: 12px; width: 90%; max-width: 420px; box-shadow: var(--shadow-xl); }
+        .profile-header { padding: 1.25rem; border-bottom: 1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; }
+        .profile-body { padding: 1.25rem; }
+        .profile-avatar-large { width: 72px; height:72px; border-radius: 16px; background: var(--primary-blue); color: white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.25rem; }
+        .profile-row { display:flex; gap:1rem; align-items:center; margin-bottom:0.75rem; }
+        .profile-actions { display:flex; gap:0.5rem; margin-top:1rem; }
+        .btn { padding:0.5rem 0.75rem; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-sidebar); cursor:pointer; }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
@@ -756,6 +971,40 @@
             background: var(--text-muted);
         }
     </style>
+    <style>
+        /* Override and polish styles for improved UI */
+        .main-container { display:flex; gap:1.5rem; padding:1.5rem; max-width:1200px; margin:1.25rem auto; width:calc(100% - 3rem); }
+        aside.sidebar { width:320px; }
+        .content-area { flex:1; display:flex; flex-direction:column; }
+
+        .navbar { padding: 0 1.5rem; height:64px; }
+        .navbar-brand span { font-size:1.15rem; }
+        .navbar-menu .nav-item { padding:0.5rem 0.6rem; border-radius:8px; }
+        .nav-item:hover { background: rgba(30,64,175,0.06); }
+
+        .chat-container { border-radius:14px; overflow:hidden; }
+        .chat-messages { padding:1.5rem 1.75rem; gap:1rem; }
+        .message { max-width:78%; }
+        .message.user { max-width:62%; }
+        .message-avatar { width:44px; height:44px; }
+        .message-content { padding:0.85rem 1rem; }
+
+        .chat-input-area { padding:0.85rem 1rem; }
+        .message-input { min-height:48px; font-size:0.96rem; }
+        .input-btn { padding:0.6rem; border-radius:10px; }
+        .input-btn.recording { background: linear-gradient(90deg,var(--accent-red),#ff8a8a); box-shadow:0 6px 18px rgba(255,90,90,0.12); color:white }
+        .send-btn { padding:0.65rem 0.95rem; box-shadow:0 6px 18px rgba(59,130,246,0.12); }
+
+        /* Response box tweaks */
+        .response-box { border-radius:10px; padding:1rem 1.2rem; }
+
+        /* Profile and settings small-screen adjustments */
+        @media (max-width: 900px) {
+            .main-container { padding:1rem; flex-direction:column; }
+            aside.sidebar { width:100%; order:2 }
+            .content-area { order:1 }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -770,8 +1019,9 @@
             <a href="#" class="nav-item" onclick="showSection('cards', this)">Cards</a>
             <a href="#" class="nav-item" onclick="showSection('loans', this)">Loans</a>
             <a href="#" class="nav-item" onclick="showSection('investments', this)">Investments</a>
+            <a href="#" class="nav-item" onclick="openSettings(event)" style="margin-left: auto;">⚙️ Settings</a>
         </div>
-        <div class="user-profile">
+        <div class="user-profile" onclick="openProfile()" title="Open profile">
             <div class="user-avatar">DU</div>
             <span class="user-name">Demo User</span>
         </div>
@@ -990,6 +1240,7 @@
         const API_BASE = 'http://localhost:5001';
         let isRecording = false;
         let mediaRecorder = null;
+        let recognition = null;
 
         document.getElementById('welcomeTime').textContent = new Date().toLocaleTimeString('en-US', { 
             hour: '2-digit', 
@@ -1010,10 +1261,17 @@
             const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
             const avatar = type === 'assistant' ? 'TTB' : 'DU';
             
+            // Format the text for better structure if it's from assistant
+            let formattedText = text;
+            if (type === 'assistant') {
+                // Wrap in response-box for structured display
+                formattedText = `<div class="response-box">${formatStructuredResponse(text)}</div>`;
+            }
+            
             messageDiv.innerHTML = `
                 <div class="message-avatar">${avatar}</div>
                 <div class="message-content">
-                    <div class="message-text">${text}</div>
+                    <div class="message-text">${formattedText}</div>
                     <div class="message-time">${time}</div>
                 </div>
             `;
@@ -1108,7 +1366,7 @@
                 const response = await fetch(`${API_BASE}/api/process`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text, user_id: 1 })
+                    body: JSON.stringify({ text, user_id: 1, response_language: userSettings.language })
                 });
                 
                 const data = await response.json();
@@ -1134,7 +1392,16 @@
                     }
                     addMessage(formattedResponse, 'assistant');
                     
-                    if (data.audio_url) {
+                    // Play or speak response according to user settings
+                    if (userSettings.autoplayAudio && userSettings.voiceEnabled) {
+                        // Prefer client-side TTS for fast responses
+                        speakText(data.text || formattedResponse, userSettings.language);
+                        // If browser does not support speechSynthesis, fallback to server audio if provided
+                        if (!('speechSynthesis' in window) && data.audio_url) {
+                            const audio = new Audio(`${API_BASE}${data.audio_url}`);
+                            audio.play().catch(err => console.log('Audio playback failed'));
+                        }
+                    } else if (data.audio_url) {
                         const audio = new Audio(`${API_BASE}${data.audio_url}`);
                         audio.play().catch(err => console.log('Audio playback failed'));
                     }
@@ -1161,50 +1428,149 @@
 
         async function toggleVoiceRecording() {
             const voiceBtn = document.getElementById('voiceBtn');
-            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
             if (!isRecording) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    mediaRecorder = new MediaRecorder(stream);
-                    const audioChunks = [];
+                // Try Web Speech API first for in-browser recognition
+                    if (SpeechRecognition) {
+                    try {
+                        // Request mic stream so we can capture audio as fallback
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        mediaRecorder = new MediaRecorder(stream);
+                        const audioChunks = [];
+                        let recognitionHasResult = false;
 
-                    mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
-                    mediaRecorder.onstop = async () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                        stream.getTracks().forEach(track => track.stop());
-                        
-                        showTyping();
-                        const formData = new FormData();
-                        formData.append('audio', audioBlob, 'recording.wav');
-                        
-                        try {
-                            const response = await fetch(`${API_BASE}/api/stt`, {
-                                method: 'POST',
-                                body: formData
-                            });
-                            const data = await response.json();
-                            removeTyping();
-                            
-                            if (data.text) {
-                                document.getElementById('messageInput').value = data.text;
-                                sendMessage();
+                        mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+                        mediaRecorder.start();
+
+                        recognition = new SpeechRecognition();
+                        recognition.lang = mapRecognitionLang(userSettings.language);
+                        recognition.interimResults = false;
+                        recognition.maxAlternatives = 1;
+
+                        recognition.onresult = (event) => {
+                            recognitionHasResult = true;
+                            const transcript = event.results[0][0].transcript;
+                            document.getElementById('messageInput').value = transcript;
+                            // stop media recorder and release stream
+                            try { mediaRecorder.stop(); } catch(e){}
+                            try { stream.getTracks().forEach(t => t.stop()); } catch(e){}
+                            sendMessage();
+                        };
+
+                        recognition.onerror = (e) => {
+                            console.error('Recognition error', e);
+                            addMessage('🎤 Voice recognition error: ' + (e.error || 'unknown') + '. Falling back to server STT.', 'assistant');
+                        };
+
+                        recognition.onend = async () => {
+                            // If recognition didn't produce a result, send recorded audio to server STT
+                            if (!recognitionHasResult) {
+                                try {
+                                    mediaRecorder.onstop = async () => {
+                                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                                        stream.getTracks().forEach(track => track.stop());
+
+                                        showTyping();
+                                        const formData = new FormData();
+                                        formData.append('audio', audioBlob, 'recording.wav');
+                                        formData.append('language', userSettings.language || 'en');
+
+                                        try {
+                                            const response = await fetch(`${API_BASE}/api/stt`, {
+                                                method: 'POST',
+                                                body: formData
+                                            });
+                                            const data = await response.json();
+                                            removeTyping();
+                                            if (data.text) {
+                                                document.getElementById('messageInput').value = data.text;
+                                                sendMessage();
+                                            } else {
+                                                addMessage('🎤 Sorry, I could not transcribe your speech.', 'assistant');
+                                            }
+                                        } catch (error) {
+                                            removeTyping();
+                                            console.error('STT Error:', error);
+                                            addMessage('🎤 <strong>Voice Recognition Failed</strong><br><br>Unable to process your voice input. Please try typing your message.', 'assistant');
+                                        }
+                                    };
+                                    if (mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+                                } catch (e) {
+                                    console.error('Fallback STT failed', e);
+                                }
                             }
-                        } catch (error) {
-                            removeTyping();
-                            console.error('STT Error:', error);
-                            addMessage('🎤 <strong>Voice Recognition Failed</strong><br><br>Unable to process your voice input. Please:<br>• Check your microphone permissions<br>• Speak clearly and avoid background noise<br>• Try typing your message instead', 'assistant');
-                        }
-                    };
 
-                    mediaRecorder.start();
-                    isRecording = true;
-                    voiceBtn.classList.add('recording');
-                    voiceBtn.textContent = '⏹️';
-                } catch (error) {
-                    alert('Microphone access denied. Please enable microphone permissions.');
+                            isRecording = false;
+                            voiceBtn.classList.remove('recording');
+                            voiceBtn.textContent = '🎤';
+                        };
+
+                        recognition.start();
+                        isRecording = true;
+                        voiceBtn.classList.add('recording');
+                        voiceBtn.textContent = '⏹️';
+                    } catch (err) {
+                        console.error('SpeechRecognition start failed', err);
+                        addMessage('🎤 Unable to start speech recognition in this browser. Falling back to server STT.', 'assistant');
+                        // fallback: prompt user to grant mic then rely on mediaRecorder handled below
+                    }
+                } else {
+                    // Fallback to MediaRecorder + server-side STT
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        mediaRecorder = new MediaRecorder(stream);
+                        const audioChunks = [];
+
+                        mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+                        mediaRecorder.onstop = async () => {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                            stream.getTracks().forEach(track => track.stop());
+                            
+                            showTyping();
+                            const formData = new FormData();
+                            formData.append('audio', audioBlob, 'recording.wav');
+                            formData.append('language', userSettings.language || 'en');
+                            
+                            try {
+                                const response = await fetch(`${API_BASE}/api/stt`, {
+                                    method: 'POST',
+                                    body: formData
+                                });
+                                const data = await response.json();
+                                removeTyping();
+                                
+                                if (data.text) {
+                                    document.getElementById('messageInput').value = data.text;
+                                    sendMessage();
+                                }
+                            } catch (error) {
+                                removeTyping();
+                                console.error('STT Error:', error);
+                                addMessage('🎤 <strong>Voice Recognition Failed</strong><br><br>Unable to process your voice input. Please:<br>• Check your microphone permissions<br>• Speak clearly and avoid background noise<br>• Try typing your message instead', 'assistant');
+                            }
+                        };
+
+                        mediaRecorder.start();
+                        isRecording = true;
+                        voiceBtn.classList.add('recording');
+                        voiceBtn.textContent = '⏹️';
+                    } catch (error) {
+                        alert('Microphone access denied. Please enable microphone permissions.');
+                    }
                 }
             } else {
-                mediaRecorder.stop();
+                // Stop whichever is active
+                try {
+                    if (recognition && typeof recognition.stop === 'function') {
+                        recognition.stop();
+                    }
+                } catch (e) {}
+
+                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                    mediaRecorder.stop();
+                }
+
                 isRecording = false;
                 voiceBtn.classList.remove('recording');
                 voiceBtn.textContent = '🎤';
@@ -1660,6 +2026,246 @@
         setTimeout(() => {
             addMessage('💡 <strong>Quick Tips:</strong><br>• Ask "Check my balance"<br>• Try "Transfer money to someone"<br>• Upload bills for automatic tracking<br>• Get personalized financial advice', 'assistant');
         }, 2000);
+
+        // Settings functionality
+        let userSettings = {
+            language: 'en',
+            voiceEnabled: true,
+            autoplayAudio: true
+        };
+
+        // Load settings from localStorage
+        function loadSettings() {
+            const saved = localStorage.getItem('userSettings');
+            if (saved) {
+                userSettings = JSON.parse(saved);
+            }
+            applySettings();
+        }
+
+        function saveSettings() {
+            localStorage.setItem('userSettings', JSON.stringify(userSettings));
+        }
+
+        function applySettings() {
+            // Apply language setting
+            document.documentElement.lang = userSettings.language;
+            
+            // Update language selector UI
+            document.querySelectorAll('.language-option').forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.dataset.lang === userSettings.language) {
+                    opt.classList.add('selected');
+                }
+            });
+
+            // Update toggle switches
+            document.getElementById('voiceToggle').checked = userSettings.voiceEnabled;
+            document.getElementById('audioToggle').checked = userSettings.autoplayAudio;
+        }
+
+        function openSettings(e) {
+            e.preventDefault();
+            const modal = document.getElementById('settingsModal');
+            modal.classList.add('active');
+            applySettings();
+        }
+
+        function closeSettings() {
+            const modal = document.getElementById('settingsModal');
+            modal.classList.remove('active');
+        }
+
+        function setLanguage(lang) {
+            userSettings.language = lang;
+            saveSettings();
+            applySettings();
+        }
+
+        function toggleVoice() {
+            userSettings.voiceEnabled = document.getElementById('voiceToggle').checked;
+            saveSettings();
+        }
+
+        function toggleAutoplay() {
+            userSettings.autoplayAudio = document.getElementById('audioToggle').checked;
+            saveSettings();
+        }
+
+        function openProfile() {
+            document.getElementById('profileModal').classList.add('active');
+            document.getElementById('profileLanguage').textContent = (userSettings.language === 'en' ? 'English' : (userSettings.language === 'hi' ? 'हिंदी' : (userSettings.language === 'mr' ? 'मराठी' : 'Hinglish')));
+            document.getElementById('profileVoice').textContent = userSettings.voiceEnabled ? 'Enabled' : 'Disabled';
+        }
+
+        function closeProfile() {
+            document.getElementById('profileModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('settingsModal');
+            if (event.target === modal) {
+                closeSettings();
+            }
+        });
+
+        // Format response with proper structure
+        function formatStructuredResponse(text) {
+            let formatted = text;
+            
+            // Add formatting for headers (lines ending with :)
+            formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            
+            // Format bullet points
+            formatted = formatted.replace(/• /g, '<div class="response-bullet">');
+            formatted = formatted.replace(/\n/g, '</div>\n');
+            
+            // Format sections
+            const sections = formatted.split('\n\n');
+            if (sections.length > 1) {
+                formatted = sections.map(section => {
+                    if (section.includes('<strong>')) {
+                        const [title, ...content] = section.split('\n');
+                        return `<div class="response-section">
+                                  <div class="response-title">${title}</div>
+                                  <div class="response-content">${content.join('<br>')}</div>
+                                </div>`;
+                    }
+                    return `<div class="response-content">${section}</div>`;
+                }).join('');
+            }
+            
+            return formatted;
+        }
+
+        // Helpers for speech and language mapping
+        function stripHtml(html) {
+            return html.replace(/<[^>]+>/g, '');
+        }
+
+        function mapSpeechLang(lang) {
+            if (lang === 'hi') return 'hi-IN';
+            if (lang === 'mr') return 'mr-IN';
+            if (lang === 'hinglish') return 'en-IN';
+            return 'en-US';
+        }
+
+        function speakText(text, lang) {
+            if (!userSettings.autoplayAudio || !userSettings.voiceEnabled) return;
+            const utterText = stripHtml(text || '');
+            if (!utterText) return;
+
+            if ('speechSynthesis' in window) {
+                try {
+                    const utter = new SpeechSynthesisUtterance(utterText);
+                    utter.lang = mapSpeechLang(lang);
+                    speechSynthesis.cancel();
+                    speechSynthesis.speak(utter);
+                } catch (e) {
+                    console.error('TTS failed', e);
+                }
+            }
+        }
+
+        function mapRecognitionLang(lang) {
+            if (lang === 'hi') return 'hi-IN';
+            if (lang === 'mr') return 'mr-IN';
+            if (lang === 'hinglish') return 'en-IN';
+            return 'en-US';
+        }
+
+        // Load settings on page load
+        loadSettings();
     </script>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+                <button class="close-btn" onclick="closeSettings()">&times;</button>
+            </div>
+            <div class="settings-body">
+                <!-- Language Settings -->
+                <div class="settings-section">
+                    <label class="settings-label">🌍 Language Preference</label>
+                    <div class="language-grid">
+                        <div class="language-option selected" data-lang="en" onclick="setLanguage('en')">
+                            <div class="language-name">English</div>
+                            <div class="language-code">en</div>
+                        </div>
+                        <div class="language-option" data-lang="hi" onclick="setLanguage('hi')">
+                            <div class="language-name">हिंदी</div>
+                            <div class="language-code">hi</div>
+                        </div>
+                        <div class="language-option" data-lang="mr" onclick="setLanguage('mr')">
+                            <div class="language-name">मराठी</div>
+                            <div class="language-code">mr</div>
+                        </div>
+                        <div class="language-option" data-lang="hinglish" onclick="setLanguage('hinglish')">
+                            <div class="language-name">Hinglish</div>
+                            <div class="language-code">hin</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audio Settings -->
+                <div class="settings-section">
+                    <label class="settings-label">🎤 Audio Settings</label>
+                    <div class="toggle-switch">
+                        <span>Enable Voice Input</span>
+                        <label class="switch">
+                            <input type="checkbox" id="voiceToggle" onchange="toggleVoice()" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-switch">
+                        <span>Autoplay Responses</span>
+                        <label class="switch">
+                            <input type="checkbox" id="audioToggle" onchange="toggleAutoplay()" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Information -->
+                <div class="settings-section">
+                    <label class="settings-label">ℹ️ About</label>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                        <p><strong>TalkToBank</strong> v1.0</p>
+                        <p>Your AI-powered voice banking assistant with multilingual support.</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+                            © 2025 TalkToBank. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Profile Modal -->
+    <div id="profileModal" class="profile-modal">
+        <div class="profile-content">
+            <div class="profile-header">
+                <div style="display:flex; gap:1rem; align-items:center;">
+                    <div class="profile-avatar-large">DU</div>
+                    <div>
+                        <div style="font-weight:700;">Demo User</div>
+                        <div style="color:var(--text-secondary); font-size:0.9rem;">demo.user@example.com</div>
+                    </div>
+                </div>
+                <button class="close-btn" onclick="closeProfile()">&times;</button>
+            </div>
+            <div class="profile-body">
+                <div class="profile-row"><strong>Preferred language:</strong> <span style="color:var(--text-secondary)"> <span id="profileLanguage">English</span></span></div>
+                <div class="profile-row"><strong>Voice input:</strong> <span style="color:var(--text-secondary)" id="profileVoice">Enabled</span></div>
+                <div class="profile-actions">
+                    <button class="btn" onclick="openSettings(event)">Edit Preferences</button>
+                    <button class="btn" onclick="alert('Logout clicked')">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
